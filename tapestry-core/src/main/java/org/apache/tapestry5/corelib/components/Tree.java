@@ -287,9 +287,12 @@ public class Tree
         return resources.createEventLink("treeAction");
     }
 
-    Object onTreeAction(@RequestParameter("t:nodeid") String nodeId,
-                        @RequestParameter("t:action") String action)
+    Object onTreeAction(@RequestParameter(value="t:nodeid",allowBlank=true) String nodeId,
+                     @RequestParameter(value="t:action",allowBlank=true) String action)
     {
+        if(nodeId == null || action == null){
+            return null;
+	}
         if (action.equalsIgnoreCase("expand"))
         {
             return doExpandChildren(nodeId);
